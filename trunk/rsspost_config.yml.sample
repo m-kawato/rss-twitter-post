@@ -1,0 +1,10 @@
+user: TWITTER_USER_ID
+password: TWITTER_PASSWORD
+posted_db: ./posted_db.gdbm
+feeds:
+ - name: bookmark
+   rss: rss-bookmark.xml
+   subjects: true
+ - name: diary
+   rss: rss-diary.xml
+   subjects: false
