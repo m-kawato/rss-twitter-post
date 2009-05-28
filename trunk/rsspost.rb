@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby -Ku
+#!/usr/bin/ruby -Ku
 
 require 'rubygems'
 require 'yaml'
@@ -33,9 +33,7 @@ GDBM.open(config['posted_db']) {|db|
     puts "rssfile: <#{rssfile}>"
     rss = RSS::Parser.parse(IO.read(rssfile))
     rss.items.reverse.each {|item|
-#p item.link
       next if db.has_key?(item.link)
-p item.link
       db[item.link] = '1'
       tag_string = ''
       if feed_item['subjects']
