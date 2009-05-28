@@ -29,9 +29,13 @@ config = YAML.load_file(CONFIG_FILE)
 GDBM.open(config['posted_db']) {|db|
   client = nil
   config['feeds'].each {|feed_item|
-    rssfile = feed_item['rss']
-    puts "rssfile: <#{rssfile}>"
-    rss = RSS::Parser.parse(IO.read(rssfile))
+    rss_url = feed_item['rss']
+    puts "rss_url: #{rss_url}"
+    if rss_url =~ %r|^http://|
+      rss = RSS::Parser.parse(rss_url)
+    else
+      rss = RSS::Parser.parse(IO.read(rss_url))
+    end
     rss.items.reverse.each {|item|
       next if db.has_key?(item.link)
       db[item.link] = '1'
